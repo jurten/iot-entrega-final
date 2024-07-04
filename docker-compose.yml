@@ -1,0 +1,35 @@
+version: "2"
+services:
+  mqtt:
+    image: eclipse-mosquitto
+    ports: 
+      - "1884:1883"
+    volumes:
+      - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    restart: unless-stopped
+
+  influxdb:
+    image: influxdb:1.8
+    ports:
+      - "8086:8086"
+    restart: unless-stopped
+
+  nodered:
+    image: nodered/node-red
+    ports:
+      - "1880:1880"
+    volumes:
+      - ./node-red-data:/data
+      - /dev/snd:/dev/snd
+    links:
+      - mqtt
+      - influxdb
+    restart: unless-stopped
+  
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    links:
+      - influxdb
+    restart: unless-stopped
