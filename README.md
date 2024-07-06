@@ -3,7 +3,7 @@
 Instalación:
 1. Ardunio 1.8.19
 2. Mosquitto https://mosquitto.org/download/
-    a. `sudo apt install mosquitto-client`
+    a. `sudo apt install mosquitto-clients`
 
 
 Para levantar mosquitto
