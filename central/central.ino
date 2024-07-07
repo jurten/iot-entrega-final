@@ -1,168 +1,101 @@
-
 #include <WiFi.h>
-#include <UniversalTelegramBot.h>
-#include <WiFiClientSecure.h>
 #include <PubSubClient.h>
-#include <Time.h>
 
-// Wifi credentials
-const char* ssid = "";
-const char* password = "";
+// Wifi
+const char* ssid = "MCeciLopez 2.4GHz";
+const char* password = "00118472430c";
+
+WiFiClient espClient;
+PubSubClient client(espClient);
 
 // Telegram bot
-const char* BOTtoken = "";
-const char* BOTchatid = "";
-
-WiFiClient wifiClient;
-UniversalTelegramBot bot(BOTtoken, client);
+//const char* BOTtoken = "7245465622:AAGLuw0TfiApgPxtVdyr-6Zrnu7ML5NaxLk";
+//const char* BOTchatid = "6121046171";
+//
+//WiFiClientSecure client;
+//UniversalTelegramBot bot(BOTtoken, client);
 
 // MQTT
-const char* mqtt_server = ""; //localhost
-const int mqtt_port = 1883;
-const char* mqtt_topic = "invernadero/temperatura";
-PubSubClient client(wifiClient);
+const char* mqtt_server = "192.168.0.14";
+const int mqtt_port = 1884;
+const char* mqtt_client = "ESP32_Client";
+const char* mqtt_topic = "esp/temperature";
 
-// Variables
-bool ventanaAbierta = false;
-bool motorActivo = false;
-unsigned long lastTimeActive = 0;
-const long outputActiveTime = 10000;
-unsigned long lastMsgTime = 0;
-const long interval = 300000; // 5 min
+// Pin
+#define LED_PIN 2
 
+
+void reconnect() {
+  while (!client.connected()) {
+    Serial.print("Attempting MQTT connection...");
+    if (client.connect(mqtt_client)) {
+      Serial.println("connected");
+    } else {
+      Serial.print("failed, rc=");
+      Serial.print(client.state());
+      Serial.println(" try again in 5 seconds");
+      delay(5000);
+    }
+  }
+}
+
+//void scanNetworks() {
+//  int n = WiFi.scanNetworks();
+//  Serial.println("Scan done");
+//  if (n == 0) {
+//    Serial.println("No networks found");
+//  } else {
+//    Serial.print(n);
+//    Serial.println(" networks found");
+//    for (int i = 0; i < n; ++i) {
+//      Serial.print(i + 1);
+//      Serial.print(": ");
+//      Serial.print(WiFi.SSID(i));
+//      Serial.print(" (");
+//      Serial.print(WiFi.RSSI(i));
+//      Serial.print(")");
+//      Serial.println((WiFi.encryptionType(i) == WIFI_AUTH_OPEN) ? " " : "*");
+//      delay(10);
+//    }
+//  }
+//}
+
+void initWiFi() {
+    WiFi.mode(WIFI_STA);
+    WiFi.begin(ssid, password);
+    Serial.print("Connecting to WiFi ..");
+    while (WiFi.status() != WL_CONNECTED) {
+      Serial.print('.');
+      delay(1000);
+    }
+    Serial.print("connected. IP: ");
+    Serial.println(WiFi.localIP());
+  }
 
 void setup() {
   Serial.begin(115200);
-  delay(1000);
+  delay(2000);
 
-  // Setup WiFi
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.println("Connecting to WiFi...");
-  }
-  Serial.println("Connected to WiFi");
+  initWiFi();
 
-  // Setup Telegram bot
-  client.setCACert(TELEGRAM_CERTIFICATE_ROOT); // Add root certificate for api.telegram.org
-  
-  Serial.print("ESP32 local IP Address: ");
-  Serial.println(WiFi.localIP());
-
-  // MQTT
   client.setServer(mqtt_server, mqtt_port);
-  client.setCallback(callback);
 }
-
-void abrirVentana(float temperature) {
-  digitalWrite(LED_PIN, HIGH); // Turn on LED (simulate motor running)
-  ventanaAbierta = true;
-  motorActivo = true;
-  lastTimeActive = millis();
-}
-
-void cerrarVentana(float temperature) {
-  digitalWrite(LED_PIN, HIGH); // Turn on LED (simulate motor running)
-  ventanaAbierta = false;
-  motorActivo = true;
-  lastTimeActive = millis();
-}
-
-void enviarEstado(float temperature) {
-  String estadoVentanas = ventanaAbierta ? "abiertas" : "cerradas";
-  String mensaje = "Temperatura: " + String(temperature) + "°C - Ventanas: " + estadoVentanas;
-  bot.sendMessage(BOTchatid, mensaje, "");
-}
-
-void sendWelcomeMessage(String BOTchatid, String from_name) {
-  String welcome = "Hola, " + from_name + "!\n";
-  welcome += "Comandos.\n\n";
-  welcome += "/estado: para ver el estado de las ventanas y la temperatura del invernadero\n";
-  welcome += "/abrir: para abrir las ventanas\n";
-  welcome += "/cerrar: para cerrar las ventanas\n";
-  bot.sendMessage(BOTchatid, welcome, "");
-}
-
-void handleTelegramMessage(String text, String from_name, float temperature, String BOTchatid) {
-  unsigned long currentMillis = millis();
-  
-  if (text == "/estado") {
-    enviarEstado(temperature);
-    Serial.println("User requested status. Sent status update.");
-  } else if (text == "/abrir") {
-    if (currentMillis - lastTimeActive > outputActiveTime) {
-      if (!ventanaAbierta) {
-        abrirVentana(temperature);
-        bot.sendMessage(BOTchatid, "Abriendo ventanas. " + String(temperature) + "°C", "");
-        Serial.println("User asked to open windows. Windows now open.");
-      } else {
-        bot.sendMessage(BOTchatid, "Ventanas ya abiertas. " + String(temperature) + "°C", "");
-        Serial.println("User asked to open windows. Windows already open.");
-      }
-    } else {
-      bot.sendMessage(BOTchatid, "Motor ya funcionando. " + String(temperature) + "°C", "");
-      Serial.println("User asked to open windows. Motor already running.");
-    }
-  } else if (text == "/cerrar") {
-    if (currentMillis - lastTimeActive > outputActiveTime) {
-      if (ventanaAbierta) {
-        cerrarVentana(temperature);
-        bot.sendMessage(BOTchatid, "Cerrando ventanas. " + String(temperature) + "°C", "");
-        Serial.println("User asked to close windows. Windows now closed.");
-      } else {
-        bot.sendMessage(BOTchatid, "Ventanas ya cerradas. " + String(temperature) + "°C", "");
-        Serial.println("User asked to close windows. Windows already closed.");
-      }
-    } else {
-      bot.sendMessage(BOTchatid, "Motor ya funcionando. " + String(temperature) + "°C", "");
-      Serial.println("User asked to close windows. Motor already running.");
-    }
-  } else {
-    sendWelcomeMessage(BOTchatid, from_name);
-    Serial.println("Sent welcome message to: " + from_name);
-  }
-}
-
-void MapForMQTT()
 
 void loop() {
+  if (!client.connected()) {
+    reconnect();
+  }
   client.loop();
-  char temp[10];
-  float temperature = random(10, 40); // Simulate temperature between 10°C and 40°C
-  sprintf(temp, "%u.10s", temperature, 10); // map temperature to char array for MQTT
-  unsigned long currentMillis = millis();
 
-  if (temperature > 30 && !ventanaAbierta && !motorActivo) {
-    client.Publish(mqtt_topic, temp);
-    client.Publish(mqtt_topic, Time.now()); // TODO: Buscar correcto formato para InfluxDB
-    abrirVentana(temperature);
-  } else if (temperature < 20 && ventanaAbierta && !motorActivo) {
-    client.Publish(mqtt_topic, temp);
-    client.Publish(mqtt_topic, Time.now());
-    cerrarVentana(temperature);
-  }
+  float temp = random(10, 40);
+  char message[6]; // Enough for "-40.00\0"
+  
+  // Convert float to string with 2 decimal places
+  dtostrf(temp, 5, 2, message);
+ 
+  client.publish(mqtt_topic, message);
+  Serial.print("Sent temperature: ");
+  Serial.println(message);
 
-  // Send regular updates every 5 minutes
-  if (currentMillis - lastMsgTime > interval) {
-    enviarEstado(temperature);
-    lastMsgTime = currentMillis;
-  }
-
-  // Check for Telegram messages
-  int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
-  while (numNewMessages) {
-    for (int i = 0; i < numNewMessages; i++) {
-      String text = bot.messages[i].text;
-      String BOTchatid = bot.messages[i].chat_id;
-      String from_name = bot.messages[i].from_name;
-      handleTelegramMessage(text, from_name, temperature, BOTchatid);
-    }
-    numNewMessages = bot.getUpdates(bot.last_message_received + 1);
-  }
-
-  // Reset motor status after the outputActiveTime
-  if (motorActivo && currentMillis - lastTimeActive > outputActiveTime) {
-    motorActivo = false;
-    digitalWrite(LED_PIN, LOW);
-  }
+  delay(5000);
 }
