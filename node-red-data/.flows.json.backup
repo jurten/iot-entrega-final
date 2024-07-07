@@ -1,0 +1,133 @@
+[
+    {
+        "id": "164dcb0874348152",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "5c569a191ab599c8",
+        "type": "mqtt-broker",
+        "name": "MQTT-local",
+        "broker": "mqtt://iot-entrega-final-mqtt-1",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "esp/temperature",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "7427d4f110b79bd3",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": "8086",
+        "protocol": "http",
+        "database": "iot_data",
+        "name": "Influx-local",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "1.8-flux",
+        "url": "http://influxdb:8086",
+        "timeout": "10",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "081d2c320828ebba",
+        "type": "mqtt in",
+        "z": "164dcb0874348152",
+        "name": "",
+        "topic": "esp/temperature",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "5c569a191ab599c8",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 520,
+        "y": 440,
+        "wires": [
+            [
+                "7fff659996db0798"
+            ]
+        ]
+    },
+    {
+        "id": "70927c507eeca57b",
+        "type": "influxdb out",
+        "z": "164dcb0874348152",
+        "influxdb": "7427d4f110b79bd3",
+        "name": "",
+        "measurement": "temperature",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "iot_data",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 840,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "813ba0ab414a5ee7",
+        "type": "debug",
+        "z": "164dcb0874348152",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": true,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 790,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "7fff659996db0798",
+        "type": "function",
+        "z": "164dcb0874348152",
+        "name": "function 1",
+        "func": "\nmsg.topic = \"temperature\"; // Set measurement name\nmsg.payload = { value: parseFloat(msg.payload) }; // Convert payload to float\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 580,
+        "wires": [
+            [
+                "70927c507eeca57b",
+                "813ba0ab414a5ee7"
+            ]
+        ]
+    }
+]

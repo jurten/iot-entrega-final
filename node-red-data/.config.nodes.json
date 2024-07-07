@@ -426,5 +426,51 @@
                 "file": "/usr/src/node-red/node_modules/@node-red/nodes/core/storage/23-watch.js"
             }
         }
+    },
+    "node-red-contrib-mqtt-auto": {
+        "name": "node-red-contrib-mqtt-auto",
+        "version": "1.0.3",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "mqtt-auto": {
+                "name": "mqtt-auto",
+                "types": [
+                    "mqtt-auto-unsubscribe",
+                    "mqtt-auto-subscribe",
+                    "mqtt-auto-connect",
+                    "mqtt-auto-disconnect",
+                    "mqtt-auto-publish",
+                    "mqtt-auto-status"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-mqtt-auto",
+                "file": "/data/node_modules/node-red-contrib-mqtt-auto/mqtt-auto.js"
+            }
+        }
+    },
+    "node-red-contrib-influxdb": {
+        "name": "node-red-contrib-influxdb",
+        "version": "0.7.0",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "influxdb": {
+                "name": "influxdb",
+                "types": [
+                    "influxdb",
+                    "influxdb out",
+                    "influxdb batch",
+                    "influxdb in"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-influxdb",
+                "file": "/data/node_modules/node-red-contrib-influxdb/influxdb.js"
+            }
+        }
     }
 }

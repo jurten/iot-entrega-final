@@ -1,0 +1,40 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@10.7.0
+2 info using node@v20.15.0
+3 silly config:load:file:/usr/local/lib/node_modules/npm/npmrc
+4 silly config:load:file:/data/.npmrc
+5 silly config:load:file:/usr/src/node-red/.npmrc
+6 silly config:load:file:/usr/local/etc/npmrc
+7 verbose title npm install node-red-contrib-influxdb@0.7.0
+8 verbose argv "install" "--no-audit" "--no-update-notifier" "--no-fund" "--save" "--save-prefix" "~" "--omit" "dev" "--engine-strict" "node-red-contrib-influxdb@0.7.0"
+9 verbose logfile logs-max:10 dir:/data/.npm/_logs/2024-07-07T00_38_58_450Z-
+10 verbose logfile /data/.npm/_logs/2024-07-07T00_38_58_450Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly idealTree buildDeps
+13 silly fetch manifest node-red-contrib-influxdb@0.7.0
+14 http fetch GET 200 https://registry.npmjs.org/node-red-contrib-influxdb 933ms (cache miss)
+15 silly placeDep ROOT node-red-contrib-influxdb@0.7.0 OK for: node-red-project@0.0.1 want: 0.7.0
+16 silly fetch manifest influx@~5.9.3
+17 silly fetch manifest @influxdata/influxdb-client@~1.33.2
+18 silly fetch manifest lodash@~4.17.21
+19 http fetch GET 200 https://registry.npmjs.org/influx 698ms (cache miss)
+20 http fetch GET 200 https://registry.npmjs.org/lodash 832ms (cache miss)
+21 http fetch GET 200 https://registry.npmjs.org/@influxdata%2finfluxdb-client 1957ms (cache miss)
+22 silly placeDep ROOT @influxdata/influxdb-client@1.33.2 OK for: node-red-contrib-influxdb@0.7.0 want: ~1.33.2
+23 silly placeDep ROOT influx@5.9.3 OK for: node-red-contrib-influxdb@0.7.0 want: ~5.9.3
+24 silly placeDep ROOT lodash@4.17.21 OK for: node-red-contrib-influxdb@0.7.0 want: ~4.17.21
+25 silly reify moves {}
+26 silly tarball no local data for lodash@https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz. Extracting by manifest.
+27 silly tarball no local data for influx@https://registry.npmjs.org/influx/-/influx-5.9.3.tgz. Extracting by manifest.
+28 silly tarball no local data for @influxdata/influxdb-client@https://registry.npmjs.org/@influxdata/influxdb-client/-/influxdb-client-1.33.2.tgz. Extracting by manifest.
+29 silly tarball no local data for node-red-contrib-influxdb@https://registry.npmjs.org/node-red-contrib-influxdb/-/node-red-contrib-influxdb-0.7.0.tgz. Extracting by manifest.
+30 http fetch GET 200 https://registry.npmjs.org/influx/-/influx-5.9.3.tgz 221ms (cache miss)
+31 http fetch GET 200 https://registry.npmjs.org/node-red-contrib-influxdb/-/node-red-contrib-influxdb-0.7.0.tgz 248ms (cache miss)
+32 http fetch GET 200 https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz 269ms (cache miss)
+33 http fetch GET 200 https://registry.npmjs.org/@influxdata/influxdb-client/-/influxdb-client-1.33.2.tgz 830ms (cache miss)
+34 silly ADD node_modules/lodash
+35 silly ADD node_modules/influx
+36 silly ADD node_modules/@influxdata/influxdb-client
+37 silly ADD node_modules/node-red-contrib-influxdb
+38 verbose exit 0
+39 info ok
