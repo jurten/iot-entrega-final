@@ -54,6 +54,32 @@
         "rejectUnauthorized": true
     },
     {
+        "id": "529a4754ba6a7368",
+        "type": "telegram bot",
+        "botname": "Sensor bot",
+        "usernames": "pvaccaro,CommanderJurten,",
+        "chatids": "",
+        "baseapiurl": "",
+        "testenvironment": false,
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    },
+    {
         "id": "081d2c320828ebba",
         "type": "mqtt in",
         "z": "164dcb0874348152",
@@ -66,8 +92,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 520,
-        "y": 440,
+        "x": 380,
+        "y": 620,
         "wires": [
             [
                 "7fff659996db0798"
@@ -79,7 +105,7 @@
         "type": "influxdb out",
         "z": "164dcb0874348152",
         "influxdb": "7427d4f110b79bd3",
-        "name": "",
+        "name": "Write",
         "measurement": "temperature",
         "precision": "",
         "retentionPolicy": "",
@@ -88,8 +114,8 @@
         "retentionPolicyV18Flux": "",
         "org": "organisation",
         "bucket": "bucket",
-        "x": 840,
-        "y": 440,
+        "x": 1010,
+        "y": 520,
         "wires": []
     },
     {
@@ -105,27 +131,304 @@
         "targetType": "full",
         "statusVal": "payload",
         "statusType": "auto",
-        "x": 790,
-        "y": 340,
+        "x": 970,
+        "y": 680,
         "wires": []
     },
     {
         "id": "7fff659996db0798",
         "type": "function",
         "z": "164dcb0874348152",
-        "name": "function 1",
-        "func": "\nmsg.topic = \"temperature\"; // Set measurement name\nmsg.payload = { value: parseFloat(msg.payload) }; // Convert payload to float\nreturn msg;\n",
+        "name": "Map string to float",
+        "func": "var temperature = parseFloat(msg.payload);\n\nif (isNaN(temperature)) {\n    // Ignore the message if the payload cannot be converted to a valid number\n    return null;\n}\n\nmsg.topic = \"temperature\";\nmsg.payload = { value: temperature };\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 660,
-        "y": 580,
+        "x": 650,
+        "y": 620,
         "wires": [
             [
-                "70927c507eeca57b",
+                "73c9b46a94da1c0a"
+            ]
+        ]
+    },
+    {
+        "id": "1679edb45bf1cff4",
+        "type": "telegram sender",
+        "z": "164dcb0874348152",
+        "name": "",
+        "bot": "529a4754ba6a7368",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1670,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "adb482e3fd4e1aa4",
+        "type": "function",
+        "z": "164dcb0874348152",
+        "name": "Map message",
+        "func": "// Function node to handle incoming Telegram messages\nvar chatIds = flow.get('chatIds') || []; // Retrieve stored chat IDs from flow context\n\nnode.warn(msg);\n// Extract necessary data from incoming message\nvar text = msg.payload.content;\nvar chatId = msg.payload.chatId;\nvar fromName = 'Unknown User';\n\nif (msg.payload.from) {\n    fromName = msg.payload.from.username || msg.payload.from.first_name || 'Unknown User';\n}\n\nif (text === '/estado') {\n    msg.command = 'estado';\n} else if (text === '/abrir') {\n    msg.command = 'abrir';\n} else if (text === '/cerrar') {\n    msg.command = 'cerrar';\n} else {\n    msg.command = 'welcome';\n}\n\n// Check if the current chatId is already saved, if not, save it\nif (!chatIds.includes(chatId)) {\n    chatIds.push(chatId);\n    flow.set('chatIds', chatIds); // Save updated chat IDs back to flow context\n}\n\n// Assign necessary data to the output message\nmsg.chatId = chatId;\nmsg.fromName = fromName;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 840,
+        "wires": [
+            [
+                "9595d103ebb8c6ea"
+            ]
+        ]
+    },
+    {
+        "id": "3ab8f66e85c260ca",
+        "type": "telegram receiver",
+        "z": "164dcb0874348152",
+        "name": "",
+        "bot": "529a4754ba6a7368",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 330,
+        "y": 840,
+        "wires": [
+            [
+                "adb482e3fd4e1aa4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "9595d103ebb8c6ea",
+        "type": "switch",
+        "z": "164dcb0874348152",
+        "name": "Switch command",
+        "property": "command",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "estado",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "abrir",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "cerrar",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "welcome",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 4,
+        "x": 830,
+        "y": 840,
+        "wires": [
+            [
+                "6cdf0532d089ce1d"
+            ],
+            [
+                "e20d38c822579caa"
+            ],
+            [
+                "8a429dabecd89eef"
+            ],
+            [
+                "f473690c7244781f"
+            ]
+        ]
+    },
+    {
+        "id": "6cdf0532d089ce1d",
+        "type": "influxdb in",
+        "z": "164dcb0874348152",
+        "influxdb": "7427d4f110b79bd3",
+        "name": "Get last temp",
+        "query": "from(bucket: \"iot_data/autogen\")\n  |> range(start: -1h)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"temperature\")\n  |> last()\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "organisation",
+        "x": 1150,
+        "y": 740,
+        "wires": [
+            [
+                "dc753bae14790aa6"
+            ]
+        ]
+    },
+    {
+        "id": "dc753bae14790aa6",
+        "type": "function",
+        "z": "164dcb0874348152",
+        "name": "Status",
+        "func": "var temperatureData = msg.payload[0];\n\nif (temperatureData) {\n    var temperature = temperatureData._value;\n    msg.payload = {\n        chatId: msg.chatId,\n        type: \"message\",\n        content: \"Temperatura actual: \" + temperature + \"°C\",\n        options: {\n            chat_id: msg.chatId,\n            text: \"Temperatura actual: \" + temperature + \"°C\"\n        }\n    };\n} else {\n    msg.payload = {\n        chatId: msg.chatId,\n        type: \"message\",\n        content: \"No hay datos disponibles de temperatura.\",\n        options: {\n            chat_id: msg.chatId,\n            text: \"No hay datos disponibles de temperatura.\"\n        }\n    };\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1330,
+        "y": 740,
+        "wires": [
+            [
+                "1679edb45bf1cff4"
+            ]
+        ]
+    },
+    {
+        "id": "e20d38c822579caa",
+        "type": "function",
+        "z": "164dcb0874348152",
+        "name": "Open win",
+        "func": "msg.payload = {\n    chatId: msg.chatId,\n    type: \"message\",\n    content: \"Abriendo ventanas. Comando recibido.\"\n};\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1160,
+        "y": 800,
+        "wires": [
+            [
+                "1679edb45bf1cff4"
+            ]
+        ]
+    },
+    {
+        "id": "8a429dabecd89eef",
+        "type": "function",
+        "z": "164dcb0874348152",
+        "name": "Close win",
+        "func": "msg.payload = {\n    chatId: msg.chatId,\n    type: \"message\",\n    content: \"Cerrando ventanas. Comando recibido.\"\n};\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1160,
+        "y": 860,
+        "wires": [
+            [
+                "1679edb45bf1cff4"
+            ]
+        ]
+    },
+    {
+        "id": "f473690c7244781f",
+        "type": "function",
+        "z": "164dcb0874348152",
+        "name": "Welcome msg",
+        "func": "var welcomeMessage = \"Hola, \" + msg.fromName + \"!\\n\";\nwelcomeMessage += \"Comandos.\\n\\n\";\nwelcomeMessage += \"/estado: para ver el estado de las ventanas y temperatura\\n\";\nwelcomeMessage += \"/abrir: para abrir las ventanas\\n\";\nwelcomeMessage += \"/cerrar: para cerrar las ventanas\\n\";\nmsg.payload = {\n    chatId: msg.chatId,\n    type: \"message\",\n    content: welcomeMessage\n};\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1180,
+        "y": 940,
+        "wires": [
+            [
+                "1679edb45bf1cff4"
+            ]
+        ]
+    },
+    {
+        "id": "2eada13525b6e10a",
+        "type": "function",
+        "z": "164dcb0874348152",
+        "name": "Map temp to message",
+        "func": "var chatIds = flow.get('chatIds') || [];\n\nvar temperature = msg.payload.value;\nvar messages = [];\n\n// Prepare messages for each chat ID in chatIds array\nchatIds.forEach(function (chatId) {\n    messages.push({\n        payload: {\n            chatId: chatId,\n            type: \"message\",\n            content: \"Temperatura actual: \" + temperature + \"°C\",\n            options: {\n                chat_id: chatId,\n                text: \"Temperatura actual: \" + temperature + \"°C\"\n            }\n        }\n    });\n});\n\n// Send messages array to output\nreturn [messages];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1280,
+        "y": 620,
+        "wires": [
+            [
+                "1679edb45bf1cff4"
+            ]
+        ]
+    },
+    {
+        "id": "b46db67269e1438c",
+        "type": "delay",
+        "z": "164dcb0874348152",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "10",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1020,
+        "y": 620,
+        "wires": [
+            [
+                "2eada13525b6e10a"
+            ]
+        ]
+    },
+    {
+        "id": "73c9b46a94da1c0a",
+        "type": "switch",
+        "z": "164dcb0874348152",
+        "name": "",
+        "property": "payload.value",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "NaN",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "NaN",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 830,
+        "y": 620,
+        "wires": [
+            [
+                "b46db67269e1438c",
+                "70927c507eeca57b"
+            ],
+            [
                 "813ba0ab414a5ee7"
             ]
         ]
