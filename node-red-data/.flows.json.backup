@@ -92,8 +92,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 380,
-        "y": 620,
+        "x": 400,
+        "y": 520,
         "wires": [
             [
                 "7fff659996db0798"
@@ -114,25 +114,8 @@
         "retentionPolicyV18Flux": "",
         "org": "organisation",
         "bucket": "bucket",
-        "x": 1010,
-        "y": 520,
-        "wires": []
-    },
-    {
-        "id": "813ba0ab414a5ee7",
-        "type": "debug",
-        "z": "164dcb0874348152",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 970,
-        "y": 680,
+        "x": 1050,
+        "y": 440,
         "wires": []
     },
     {
@@ -140,15 +123,15 @@
         "type": "function",
         "z": "164dcb0874348152",
         "name": "Map string to float",
-        "func": "var temperature = parseFloat(msg.payload);\n\nif (isNaN(temperature)) {\n    // Ignore the message if the payload cannot be converted to a valid number\n    return null;\n}\n\nmsg.topic = \"temperature\";\nmsg.payload = { value: temperature };\nreturn msg;\n",
+        "func": "var temperature = parseFloat(msg.payload);\n\nif (isNaN(temperature)) {\n    // Ignore the message if the payload cannot be converted to a valid number - this happens some times when deploying\n    return null;\n}\n\nmsg.topic = \"temperature\";\nmsg.payload = { value: temperature };\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 650,
-        "y": 620,
+        "x": 630,
+        "y": 520,
         "wires": [
             [
                 "73c9b46a94da1c0a"
@@ -163,7 +146,7 @@
         "bot": "529a4754ba6a7368",
         "haserroroutput": false,
         "outputs": 1,
-        "x": 1670,
+        "x": 1870,
         "y": 780,
         "wires": [
             []
@@ -174,7 +157,7 @@
         "type": "function",
         "z": "164dcb0874348152",
         "name": "Map message",
-        "func": "// Function node to handle incoming Telegram messages\nvar chatIds = flow.get('chatIds') || []; // Retrieve stored chat IDs from flow context\n\nnode.warn(msg);\n// Extract necessary data from incoming message\nvar text = msg.payload.content;\nvar chatId = msg.payload.chatId;\nvar fromName = 'Unknown User';\n\nif (msg.payload.from) {\n    fromName = msg.payload.from.username || msg.payload.from.first_name || 'Unknown User';\n}\n\nif (text === '/estado') {\n    msg.command = 'estado';\n} else if (text === '/abrir') {\n    msg.command = 'abrir';\n} else if (text === '/cerrar') {\n    msg.command = 'cerrar';\n} else {\n    msg.command = 'welcome';\n}\n\n// Check if the current chatId is already saved, if not, save it\nif (!chatIds.includes(chatId)) {\n    chatIds.push(chatId);\n    flow.set('chatIds', chatIds); // Save updated chat IDs back to flow context\n}\n\n// Assign necessary data to the output message\nmsg.chatId = chatId;\nmsg.fromName = fromName;\n\nreturn msg;\n",
+        "func": "// Function node to handle incoming Telegram messages\nvar chatIds = flow.get('chatIds') || []; // Retrieve stored chat IDs from flow context\n\n// Extract necessary data from incoming message\nvar text = msg.payload.content;\nvar chatId = msg.payload.chatId;\nvar fromName = 'Unknown User';\n\nif (msg.originalMessage && msg.originalMessage.from) {\n    fromName = msg.originalMessage.from.first_name || 'Unknown User';\n}\n\nif (text === '/estado') {\n    msg.command = 'estado';\n} else if (text === '/abrir') {\n    msg.command = 'abrir';\n} else if (text === '/cerrar') {\n    msg.command = 'cerrar';\n} else {\n    msg.command = 'welcome';\n}\n\n// Check if the current chatId is already saved, if not, save it\nif (!chatIds.includes(chatId)) {\n    chatIds.push(chatId);\n    flow.set('chatIds', chatIds); // Save updated chat IDs back to flow context\n}\n\n// Assign necessary data to the output message\nmsg.chatId = chatId;\nmsg.fromName = fromName;\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -279,7 +262,7 @@
         "type": "function",
         "z": "164dcb0874348152",
         "name": "Status",
-        "func": "var temperatureData = msg.payload[0];\n\nif (temperatureData) {\n    var temperature = temperatureData._value;\n    msg.payload = {\n        chatId: msg.chatId,\n        type: \"message\",\n        content: \"Temperatura actual: \" + temperature + \"°C\",\n        options: {\n            chat_id: msg.chatId,\n            text: \"Temperatura actual: \" + temperature + \"°C\"\n        }\n    };\n} else {\n    msg.payload = {\n        chatId: msg.chatId,\n        type: \"message\",\n        content: \"No hay datos disponibles de temperatura.\",\n        options: {\n            chat_id: msg.chatId,\n            text: \"No hay datos disponibles de temperatura.\"\n        }\n    };\n}\nreturn msg;\n",
+        "func": "var temperatureData = msg.payload[0];\nvar winStatus = flow.get('ventanaAbierta');\n\nif (temperatureData) {\n    var temperature = temperatureData._value;\n    msg.payload = {\n        chatId: msg.chatId,\n        type: \"message\",\n        content: \"Temperatura actual: \" + temperature + \"°C | Ventanas: \" + (winStatus ? \"abiertas\" : \"cerradas\"),\n        options: {\n            chat_id: msg.chatId,\n            text: \"Temperatura actual: \" + temperature + \"°C | Ventanas: \" + (winStatus ? \"abiertas\" : \"cerradas\"),\n        }\n    };\n} else {\n    msg.payload = {\n        chatId: msg.chatId,\n        type: \"message\",\n        content: \"No hay datos disponibles de temperatura.\",\n        options: {\n            chat_id: msg.chatId,\n            text: \"No hay datos disponibles de temperatura.\"\n        }\n    };\n}\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -299,7 +282,7 @@
         "type": "function",
         "z": "164dcb0874348152",
         "name": "Open win",
-        "func": "msg.payload = {\n    chatId: msg.chatId,\n    type: \"message\",\n    content: \"Abriendo ventanas. Comando recibido.\"\n};\nreturn msg;\n",
+        "func": "var winStatus = flow.get('ventanaAbierta');\nvar motorActivo = flow.get('motorActivo');\nvar chatId = msg.chatId;\nvar responseMessage = \"\";\n\nif (!motorActivo) {\n    if (!winStatus) {\n        // Simulate opening windows\n        flow.set('ventanaAbierta', true);\n        flow.set('motorActivo', true);\n        responseMessage = \"Comando recibido. Ventanas abiertas.\";\n    } else {\n        responseMessage = \"Ventanas ya abiertas. Comando no ejecutado.\";\n    }\n} else {\n    flow.set('motorActivo', false);\n    responseMessage = \"Motor ya funcionando. Comando no ejecutado.\";\n}\n\nmsg.payload = {\n    chatId: chatId,\n    type: \"message\",\n    content: responseMessage\n};\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -319,7 +302,7 @@
         "type": "function",
         "z": "164dcb0874348152",
         "name": "Close win",
-        "func": "msg.payload = {\n    chatId: msg.chatId,\n    type: \"message\",\n    content: \"Cerrando ventanas. Comando recibido.\"\n};\nreturn msg;\n",
+        "func": "var winStatus = flow.get('ventanaAbierta');\nvar motorActivo = flow.get('motorActivo');\nvar chatId = msg.chatId;\nvar responseMessage = \"\";\n\nif (!motorActivo) {\n    if (!winStatus) {\n        // Simulate opening windows\n        flow.set('ventanaAbierta', false);\n        flow.set('motorActivo', true);\n        responseMessage = \"Cerrando ventanas. Comando recibido.\";\n    } else {\n        responseMessage = \"Ventanas ya cerradas. Comando no ejecutado.\";\n    }\n} else {\n    flow.set('motorActivo', false);\n    responseMessage = \"Motor ya funcionando. Comando no ejecutado.\";\n}\n\nmsg.payload = {\n    chatId: chatId,\n    type: \"message\",\n    content: responseMessage\n};\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -359,15 +342,15 @@
         "type": "function",
         "z": "164dcb0874348152",
         "name": "Map temp to message",
-        "func": "var chatIds = flow.get('chatIds') || [];\n\nvar temperature = msg.payload.value;\nvar messages = [];\n\n// Prepare messages for each chat ID in chatIds array\nchatIds.forEach(function (chatId) {\n    messages.push({\n        payload: {\n            chatId: chatId,\n            type: \"message\",\n            content: \"Temperatura actual: \" + temperature + \"°C\",\n            options: {\n                chat_id: chatId,\n                text: \"Temperatura actual: \" + temperature + \"°C\"\n            }\n        }\n    });\n});\n\n// Send messages array to output\nreturn [messages];",
+        "func": "var chatIds = flow.get('chatIds') || [];\nvar winStatus = flow.get('ventanaAbierta');\n\nvar temperature = msg.payload.value;\nvar messages = [];\n\n// Prepare messages for each chat ID in chatIds array\nchatIds.forEach(function (chatId) {\n    messages.push({\n        payload: {\n            chatId: chatId,\n            type: \"message\",\n            content: \"Temperatura actual: \" + temperature + \"°C | Ventanas: \" + (winStatus ? \"abiertas\" : \"cerradas\"),\n            options: {\n                chat_id: chatId,\n                text: \"Temperatura actual: \" + temperature + \"°C | Ventanas: \" + (winStatus ? \"abiertas\" : \"cerradas\"),\n            }\n        }\n    });\n});\n\n// Send messages array to output\nreturn [messages];",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1280,
-        "y": 620,
+        "x": 1340,
+        "y": 600,
         "wires": [
             [
                 "1679edb45bf1cff4"
@@ -391,8 +374,8 @@
         "drop": true,
         "allowrate": false,
         "outputs": 1,
-        "x": 1020,
-        "y": 620,
+        "x": 1060,
+        "y": 600,
         "wires": [
             [
                 "2eada13525b6e10a"
@@ -421,16 +404,137 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 830,
-        "y": 620,
+        "x": 810,
+        "y": 520,
         "wires": [
             [
                 "b46db67269e1438c",
-                "70927c507eeca57b"
+                "70927c507eeca57b",
+                "e09e5430794375ba"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "bb193055d7830837",
+        "type": "change",
+        "z": "164dcb0874348152",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "chatIds",
+                "pt": "flow",
+                "to": "{\"chatIds\":[\"6121046171\"]}",
+                "tot": "json"
+            },
+            {
+                "t": "set",
+                "p": "ventanaAbierta",
+                "pt": "flow",
+                "to": "false",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "motorActivo",
+                "pt": "flow",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e09e5430794375ba",
+        "type": "switch",
+        "z": "164dcb0874348152",
+        "name": "Compare temp",
+        "property": "payload.value",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "15",
+                "vt": "num"
+            },
+            {
+                "t": "gt",
+                "v": "30",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1060,
+        "y": 520,
+        "wires": [
+            [
+                "0a488a4a9f9ccb1d"
             ],
             [
-                "813ba0ab414a5ee7"
+                "7ef8a62fe98a5a67"
             ]
+        ]
+    },
+    {
+        "id": "7ef8a62fe98a5a67",
+        "type": "change",
+        "z": "164dcb0874348152",
+        "name": "Open win",
+        "rules": [
+            {
+                "t": "set",
+                "p": "ventanaAbierta",
+                "pt": "flow",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1280,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0a488a4a9f9ccb1d",
+        "type": "change",
+        "z": "164dcb0874348152",
+        "name": "Close win",
+        "rules": [
+            {
+                "t": "set",
+                "p": "ventanaAbierta",
+                "pt": "flow",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1280,
+        "y": 500,
+        "wires": [
+            []
         ]
     }
 ]
