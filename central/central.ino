@@ -16,7 +16,7 @@ PubSubClient client(espClient);
 //UniversalTelegramBot bot(BOTtoken, client);
 
 // MQTT
-const char* mqtt_server = "192.168.0.14";
+const char* mqtt_server = "192.168.1.114";
 const int mqtt_port = 1884;
 const char* mqtt_client = "ESP32_Client";
 const char* mqtt_topic = "esp/temperature";
