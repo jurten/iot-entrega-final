@@ -57,7 +57,7 @@
         "id": "529a4754ba6a7368",
         "type": "telegram bot",
         "botname": "Sensor bot",
-        "usernames": "pvaccaro,CommanderJurten,",
+        "usernames": "pvaccaro,CommanderJurten,apanigo",
         "chatids": "",
         "baseapiurl": "",
         "testenvironment": false,
@@ -157,7 +157,7 @@
         "type": "function",
         "z": "164dcb0874348152",
         "name": "Map message",
-        "func": "// Function node to handle incoming Telegram messages\nvar chatIds = flow.get('chatIds') || []; // Retrieve stored chat IDs from flow context\n\n// Extract necessary data from incoming message\nvar text = msg.payload.content;\nvar chatId = msg.payload.chatId;\nvar fromName = 'Unknown User';\n\nif (msg.originalMessage && msg.originalMessage.from) {\n    fromName = msg.originalMessage.from.first_name || 'Unknown User';\n}\n\nif (text === '/estado') {\n    msg.command = 'estado';\n} else if (text === '/abrir') {\n    msg.command = 'abrir';\n} else if (text === '/cerrar') {\n    msg.command = 'cerrar';\n} else {\n    msg.command = 'welcome';\n}\n\n// Check if the current chatId is already saved, if not, save it\nif (!chatIds.includes(chatId)) {\n    chatIds.push(chatId);\n    flow.set('chatIds', chatIds); // Save updated chat IDs back to flow context\n}\n\n// Assign necessary data to the output message\nmsg.chatId = chatId;\nmsg.fromName = fromName;\n\nreturn msg;\n",
+        "func": "// Extract necessary data from incoming message\nvar text = msg.payload.content;\nvar chatId = global.get('chatId');\nvar fromName = msg.originalMessage.from.first_name;\n\nif (text === '/estado') {\n    msg.command = 'estado';\n} else if (text === '/abrir') {\n    msg.command = 'abrir';\n} else if (text === '/cerrar') {\n    msg.command = 'cerrar';\n} else {\n    msg.command = 'welcome';\n}\n\n// Assign necessary data to the output message\nmsg.chatId = chatId;\nmsg.fromName = fromName;\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -364,28 +364,11 @@
         ]
     },
     {
-        "id": "9e2df47804aa299a",
-        "type": "debug",
-        "z": "164dcb0874348152",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": true,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 1390,
-        "y": 380,
-        "wires": []
-    },
-    {
         "id": "af74a40de3cb33b3",
         "type": "function",
         "z": "164dcb0874348152",
         "name": "Close win updates",
-        "func": "var winStatus = global.get('ventanaAbierta');\nvar motorActivo = global.get('motorActivo');\nvar temperature = msg.payload.value;\nvar chatIds = global.get('chatIds');\nvar messages = [];\nvar responseMessage = \"\";\n\nnode.warn(motorActivo);\n\nif (!motorActivo) {\n    if (((winStatus) && temperature < 15) || ((!winStatus) && temperature > 30)) {\n        responseMessage = \"Temperatura actual: \" + temperature + \"°C | \" + (winStatus ? \"Cerrando\" : \"Abriendo\") + \" ventanas\";\n        global.set('ventanaAbierta', !winStatus);\n        global.set('motorActivo', true);\n        setTimeout(function () {\n            global.set('motorActivo', false); // Set motor inactive after 10 seconds\n        }, 100000);\n    }\n}\n\nchatIds.chatIds.forEach(function (chatId) {\n    messages.push({\n        payload: {\n            chatId: chatId,\n            type: \"message\",\n            content: responseMessage\n        }\n    });\n});\n\nreturn [messages];",
+        "func": "var winStatus = global.get('ventanaAbierta');\nvar motorActivo = global.get('motorActivo');\nvar temperature = msg.payload.value;\nvar responseMessage = \"\";\n\nif (!motorActivo) {\n    if (((winStatus) && temperature < 15) || ((!winStatus) && temperature > 30)) {\n        responseMessage = \"Temperatura actual: \" + temperature + \"°C | \" + (winStatus ? \"Cerrando\" : \"Abriendo\") + \" ventanas\";\n        global.set('ventanaAbierta', !winStatus);\n        global.set('motorActivo', true);\n        setTimeout(function () {\n            global.set('motorActivo', false); // Set motor inactive after 10 seconds\n        }, 10000);\n    }\n}\n\nmsg.payload = {\n    chatId: global.get('chatId'),\n    type: \"message\",\n    content: responseMessage\n};\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -396,7 +379,6 @@
         "y": 520,
         "wires": [
             [
-                "9e2df47804aa299a",
                 "f0650064bccb3454"
             ]
         ]
@@ -445,10 +427,10 @@
                 "tot": "bool"
             },
             {
-                "p": "chatIds",
+                "p": "chatId",
                 "pt": "global",
-                "to": "{\"chatIds\":[\"6121046171\", \"1486459968\"]}",
-                "tot": "json"
+                "to": "-1002166359624",
+                "tot": "str"
             }
         ],
         "active": true,
