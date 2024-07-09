@@ -282,7 +282,7 @@
         "type": "function",
         "z": "164dcb0874348152",
         "name": "Open win",
-        "func": "var winStatus = flow.get('ventanaAbierta');\nvar motorActivo = flow.get('motorActivo');\nvar chatId = msg.chatId;\nvar responseMessage = \"\";\n\nif (!motorActivo) {\n    if (!winStatus) {\n        // Simulate opening windows\n        flow.set('ventanaAbierta', true);\n        setTimeout(()=>flow.set('motorActivo',false), 10000); // 10 seconds\n        flow.set('motorActivo', true);\n        responseMessage = \"Comando recibido. Ventanas abiertas.\";\n    } else {\n        responseMessage = \"Ventanas ya abiertas. Comando no ejecutado.\";\n    }\n} else {\n    responseMessage = \"Motor ya funcionando. Comando no ejecutado.\";\n}\n\nmsg.payload = {\n    chatId: chatId,\n    type: \"message\",\n    content: responseMessage\n};\n\nreturn msg;\n",
+        "func": "var winStatus = flow.get('ventanaAbierta');\nvar motorActivo = flow.get('motorActivo');\nvar chatId = msg.chatId;\nvar responseMessage = \"\";\n\nif (!motorActivo) {\n    if (!winStatus) {\n        // Simulate opening windows\n        flow.set('ventanaAbierta', true);\n        setTimeout(function () {\n            flow.set('motorActivo', false); // Set motor inactive after 10 seconds\n        }, 10000);\n        flow.set('motorActivo', true);\n        responseMessage = \"Comando recibido. Ventanas abiertas.\";\n    } else {\n        responseMessage = \"Ventanas ya abiertas. Comando no ejecutado.\";\n    }\n} else {\n    responseMessage = \"Motor ya funcionando. Comando no ejecutado.\";\n}\n\nmsg.payload = {\n    chatId: chatId,\n    type: \"message\",\n    content: responseMessage\n};\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -302,7 +302,7 @@
         "type": "function",
         "z": "164dcb0874348152",
         "name": "Close win",
-        "func": "var winStatus = flow.get('ventanaAbierta');\nvar motorActivo = flow.get('motorActivo');\nvar chatId = msg.chatId;\nvar responseMessage = \"\";\n\nif (!motorActivo) {\n    if (!winStatus) {\n        // Simulate opening windows\n        flow.set('ventanaAbierta', false);\n        setTimeout(()=>flow.set('motorActivo',false), 10000); // 10 seconds\n        flow.set('motorActivo', true);\n        responseMessage = \"Cerrando ventanas. Comando recibido.\";\n    } else {\n        responseMessage = \"Ventanas ya cerradas. Comando no ejecutado.\";\n    }\n} else {\n    responseMessage = \"Motor ya funcionando. Comando no ejecutado.\";\n}\n\nmsg.payload = {\n    chatId: chatId,\n    type: \"message\",\n    content: responseMessage\n};\n\nreturn msg;\n",
+        "func": "var winStatus = flow.get('ventanaAbierta');\nvar motorActivo = flow.get('motorActivo');\nvar chatId = msg.chatId;\nvar responseMessage = \"\";\n\nif (!motorActivo) {\n    if (winStatus) {\n        // Simulate closing windows\n        flow.set('ventanaAbierta', false);\n        setTimeout(function () {\n            flow.set('motorActivo', false); // Set motor inactive after 10 seconds\n        }, 10000);\n        flow.set('motorActivo', true);\n        responseMessage = \"Cerrando ventanas. Comando recibido.\";\n    } else {\n        responseMessage = \"Ventanas ya cerradas. Comando no ejecutado.\";\n    }\n} else {\n    responseMessage = \"Motor ya funcionando. Comando no ejecutado.\";\n}\n\nmsg.payload = {\n    chatId: chatId,\n    type: \"message\",\n    content: responseMessage\n};\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -425,7 +425,7 @@
                 "t": "set",
                 "p": "chatIds",
                 "pt": "flow",
-                "to": "{\"chatIds\":[\"6121046171\"]}",
+                "to": "{\"chatIds\":[\"6121046171\", \"1486459968\"]}",
                 "tot": "json"
             },
             {
