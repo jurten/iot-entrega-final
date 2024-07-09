@@ -4,6 +4,7 @@
     "version": "0.0.1",
     "private": true,
     "dependencies": {
+        "node-red-contrib-config": "~1.2.1",
         "node-red-contrib-influxdb": "~0.7.0",
         "node-red-contrib-mqtt-auto": "~1.0.3"
     }

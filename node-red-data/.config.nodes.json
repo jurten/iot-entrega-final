@@ -497,5 +497,24 @@
                 "file": "/data/node_modules/node-red-contrib-telegrambot/telegrambot/99-telegrambot.js"
             }
         }
+    },
+    "node-red-contrib-config": {
+        "name": "node-red-contrib-config",
+        "version": "1.2.1",
+        "local": true,
+        "user": true,
+        "nodes": {
+            "config": {
+                "name": "config",
+                "types": [
+                    "config"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-config",
+                "file": "/data/node_modules/node-red-contrib-config/config.js"
+            }
+        }
     }
 }

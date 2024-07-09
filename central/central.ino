@@ -2,28 +2,20 @@
 #include <PubSubClient.h>
 
 // Wifi
-const char* ssid = "MCeciLopez 2.4GHz";
-const char* password = "00118472430c";
+const char* ssid = "Carrie Mathison";
+const char* password = "1122332211";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-// Telegram bot
-//const char* BOTtoken = "7245465622:AAGLuw0TfiApgPxtVdyr-6Zrnu7ML5NaxLk";
-//const char* BOTchatid = "6121046171";
-//
-//WiFiClientSecure client;
-//UniversalTelegramBot bot(BOTtoken, client);
-
 // MQTT
-const char* mqtt_server = "192.168.1.114";
-const int mqtt_port = 1884;
+const char* mqtt_server = "test.mosquitto.org";
+const int mqtt_port = 1883;
 const char* mqtt_client = "ESP32_Client";
-const char* mqtt_topic = "esp/temperature";
+const char* mqtt_topic = "esp/supercomplex/system/temperature";
 
 // Pin
 #define LED_PIN 2
-
 
 void reconnect() {
   while (!client.connected()) {
@@ -38,27 +30,6 @@ void reconnect() {
     }
   }
 }
-
-//void scanNetworks() {
-//  int n = WiFi.scanNetworks();
-//  Serial.println("Scan done");
-//  if (n == 0) {
-//    Serial.println("No networks found");
-//  } else {
-//    Serial.print(n);
-//    Serial.println(" networks found");
-//    for (int i = 0; i < n; ++i) {
-//      Serial.print(i + 1);
-//      Serial.print(": ");
-//      Serial.print(WiFi.SSID(i));
-//      Serial.print(" (");
-//      Serial.print(WiFi.RSSI(i));
-//      Serial.print(")");
-//      Serial.println((WiFi.encryptionType(i) == WIFI_AUTH_OPEN) ? " " : "*");
-//      delay(10);
-//    }
-//  }
-//}
 
 void initWiFi() {
     WiFi.mode(WIFI_STA);

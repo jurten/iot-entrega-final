@@ -10,8 +10,8 @@
     {
         "id": "5c569a191ab599c8",
         "type": "mqtt-broker",
-        "name": "MQTT-local",
-        "broker": "mqtt://iot-entrega-final-mqtt-1",
+        "name": "MQTT-hosted",
+        "broker": "91.121.93.94",
         "port": "1883",
         "clientid": "",
         "autoConnect": true,
@@ -20,7 +20,7 @@
         "keepalive": "60",
         "cleansession": true,
         "autoUnsubscribe": true,
-        "birthTopic": "esp/temperature",
+        "birthTopic": "",
         "birthQos": "0",
         "birthRetain": "false",
         "birthPayload": "",
@@ -83,8 +83,8 @@
         "id": "081d2c320828ebba",
         "type": "mqtt in",
         "z": "164dcb0874348152",
-        "name": "",
-        "topic": "esp/temperature",
+        "name": "MQTT",
+        "topic": "esp/supercomplex/system/temperature",
         "qos": "2",
         "datatype": "auto-detect",
         "broker": "5c569a191ab599c8",
@@ -92,7 +92,7 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 400,
+        "x": 410,
         "y": 520,
         "wires": [
             [
@@ -146,7 +146,7 @@
         "bot": "529a4754ba6a7368",
         "haserroroutput": false,
         "outputs": 1,
-        "x": 1710,
+        "x": 2150,
         "y": 780,
         "wires": [
             []
@@ -282,7 +282,7 @@
         "type": "function",
         "z": "164dcb0874348152",
         "name": "Open win",
-        "func": "var winStatus = flow.get('ventanaAbierta');\nvar motorActivo = flow.get('motorActivo');\nvar chatId = msg.chatId;\nvar responseMessage = \"\";\n\nif (!motorActivo) {\n    if (!winStatus) {\n        // Simulate opening windows\n        flow.set('ventanaAbierta', true);\n        setTimeout(()=>flow.set('motorActivo',false), 10000); // 10 seconds\n        flow.set('motorActivo', true);\n        responseMessage = \"Comando recibido. Ventanas abiertas.\";\n    } else {\n        responseMessage = \"Ventanas ya abiertas. Comando no ejecutado.\";\n    }\n} else {\n    responseMessage = \"Motor ya funcionando. Comando no ejecutado.\";\n}\n\nmsg.payload = {\n    chatId: chatId,\n    type: \"message\",\n    content: responseMessage\n};\n\nreturn msg;\n",
+        "func": "var winStatus = flow.get('ventanaAbierta');\nvar motorActivo = flow.get('motorActivo');\nvar chatId = msg.chatId;\nvar responseMessage = \"\";\n\nif (!motorActivo) {\n    if (!winStatus) {\n        // Simulate opening windows\n        flow.set('ventanaAbierta', true);\n        setTimeout(function () {\n            flow.set('motorActivo', false); // Set motor inactive after 10 seconds\n        }, 10000);\n        flow.set('motorActivo', true);\n        responseMessage = \"Comando recibido. Ventanas abiertas.\";\n    } else {\n        responseMessage = \"Ventanas ya abiertas. Comando no ejecutado.\";\n    }\n} else {\n    responseMessage = \"Motor ya funcionando. Comando no ejecutado.\";\n}\n\nmsg.payload = {\n    chatId: chatId,\n    type: \"message\",\n    content: responseMessage\n};\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -302,7 +302,7 @@
         "type": "function",
         "z": "164dcb0874348152",
         "name": "Close win",
-        "func": "var winStatus = flow.get('ventanaAbierta');\nvar motorActivo = flow.get('motorActivo');\nvar chatId = msg.chatId;\nvar responseMessage = \"\";\n\nif (!motorActivo) {\n    if (!winStatus) {\n        // Simulate opening windows\n        flow.set('ventanaAbierta', false);\n        setTimeout(()=>flow.set('motorActivo',false), 10000); // 10 seconds\n        flow.set('motorActivo', true);\n        responseMessage = \"Cerrando ventanas. Comando recibido.\";\n    } else {\n        responseMessage = \"Ventanas ya cerradas. Comando no ejecutado.\";\n    }\n} else {\n    responseMessage = \"Motor ya funcionando. Comando no ejecutado.\";\n}\n\nmsg.payload = {\n    chatId: chatId,\n    type: \"message\",\n    content: responseMessage\n};\n\nreturn msg;\n",
+        "func": "var winStatus = flow.get('ventanaAbierta');\nvar motorActivo = flow.get('motorActivo');\nvar chatId = msg.chatId;\nvar responseMessage = \"\";\n\nif (!motorActivo) {\n    if (winStatus) {\n        // Simulate closing windows\n        flow.set('ventanaAbierta', false);\n        setTimeout(function () {\n            flow.set('motorActivo', false); // Set motor inactive after 10 seconds\n        }, 10000);\n        flow.set('motorActivo', true);\n        responseMessage = \"Cerrando ventanas. Comando recibido.\";\n    } else {\n        responseMessage = \"Ventanas ya cerradas. Comando no ejecutado.\";\n    }\n} else {\n    responseMessage = \"Motor ya funcionando. Comando no ejecutado.\";\n}\n\nmsg.payload = {\n    chatId: chatId,\n    type: \"message\",\n    content: responseMessage\n};\n\nreturn msg;\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -352,9 +352,7 @@
         "x": 1340,
         "y": 600,
         "wires": [
-            [
-                "1679edb45bf1cff4"
-            ]
+            []
         ]
     },
     {
@@ -394,147 +392,111 @@
                 "t": "neq",
                 "v": "NaN",
                 "vt": "num"
-            },
-            {
-                "t": "eq",
-                "v": "NaN",
-                "vt": "num"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 2,
+        "outputs": 1,
         "x": 820,
         "y": 520,
         "wires": [
             [
-                "b46db67269e1438c",
                 "70927c507eeca57b",
-                "e09e5430794375ba"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "bb193055d7830837",
-        "type": "change",
-        "z": "164dcb0874348152",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "chatIds",
-                "pt": "flow",
-                "to": "{\"chatIds\":[\"6121046171\"]}",
-                "tot": "json"
-            },
-            {
-                "t": "set",
-                "p": "ventanaAbierta",
-                "pt": "flow",
-                "to": "false",
-                "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "motorActivo",
-                "pt": "flow",
-                "to": "false",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 400,
-        "y": 640,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "e09e5430794375ba",
-        "type": "switch",
-        "z": "164dcb0874348152",
-        "name": "Compare temp",
-        "property": "payload.value",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "lte",
-                "v": "20",
-                "vt": "num"
-            },
-            {
-                "t": "gte",
-                "v": "30",
-                "vt": "num"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 1060,
-        "y": 520,
-        "wires": [
-            [
-                "0a488a4a9f9ccb1d"
-            ],
-            [
-                "7ef8a62fe98a5a67"
+                "af74a40de3cb33b3"
             ]
         ]
     },
     {
-        "id": "7ef8a62fe98a5a67",
-        "type": "change",
+        "id": "9e2df47804aa299a",
+        "type": "debug",
         "z": "164dcb0874348152",
-        "name": "Open win",
-        "rules": [
-            {
-                "t": "set",
-                "p": "ventanaAbierta",
-                "pt": "flow",
-                "to": "true",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1280,
-        "y": 540,
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 1390,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "af74a40de3cb33b3",
+        "type": "function",
+        "z": "164dcb0874348152",
+        "name": "Close win updates",
+        "func": "var winStatus = global.get('ventanaAbierta');\nvar motorActivo = global.get('motorActivo');\nvar temperature = msg.payload.value;\nvar chatIds = global.get('chatIds');\nvar messages = [];\nvar responseMessage = \"\";\n\nnode.warn(motorActivo);\n\nif (!motorActivo) {\n    if (((winStatus) && temperature < 15) || ((!winStatus) && temperature > 30)) {\n        responseMessage = \"Temperatura actual: \" + temperature + \"°C | \" + (winStatus ? \"Cerrando\" : \"Abriendo\") + \" ventanas\";\n        global.set('ventanaAbierta', !winStatus);\n        global.set('motorActivo', true);\n        setTimeout(function () {\n            global.set('motorActivo', false); // Set motor inactive after 10 seconds\n        }, 100000);\n    }\n}\n\nchatIds.chatIds.forEach(function (chatId) {\n    messages.push({\n        payload: {\n            chatId: chatId,\n            type: \"message\",\n            content: responseMessage,\n            options: {\n                chat_id: chatId,\n                text: responseMessage,\n            }\n        }\n    });\n});\n\nreturn [messages];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1330,
+        "y": 520,
         "wires": [
-            []
+            [
+                "9e2df47804aa299a",
+                "f0650064bccb3454"
+            ]
         ]
     },
     {
-        "id": "0a488a4a9f9ccb1d",
-        "type": "change",
+        "id": "f0650064bccb3454",
+        "type": "switch",
         "z": "164dcb0874348152",
-        "name": "Close win",
+        "name": "",
+        "property": "payload.content",
+        "propertyType": "msg",
         "rules": [
             {
-                "t": "set",
-                "p": "ventanaAbierta",
-                "pt": "flow",
-                "to": "false",
-                "tot": "bool"
+                "t": "neq",
+                "v": "",
+                "vt": "str"
             }
         ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1280,
-        "y": 500,
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1610,
+        "y": 520,
         "wires": [
-            []
+            [
+                "1679edb45bf1cff4"
+            ]
         ]
+    },
+    {
+        "id": "9176d6bcdb552db0",
+        "type": "config",
+        "z": "164dcb0874348152",
+        "name": "Setup",
+        "properties": [
+            {
+                "p": "motorActivo",
+                "pt": "global",
+                "to": "false",
+                "tot": "bool"
+            },
+            {
+                "p": "ventanaAbierta",
+                "pt": "global",
+                "to": "false",
+                "tot": "bool"
+            },
+            {
+                "p": "chatIds",
+                "pt": "global",
+                "to": "{\"chatIds\":[\"6121046171\", \"1486459968\"]}",
+                "tot": "json"
+            }
+        ],
+        "active": true,
+        "x": 410,
+        "y": 680,
+        "wires": []
     }
 ]

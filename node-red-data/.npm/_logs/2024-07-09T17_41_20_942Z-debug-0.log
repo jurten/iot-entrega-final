@@ -1,0 +1,447 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@10.7.0
+2 info using node@v20.15.0
+3 silly config:load:file:/usr/local/lib/node_modules/npm/npmrc
+4 silly config:load:file:/data/.npmrc
+5 silly config:load:file:/usr/src/node-red/.npmrc
+6 silly config:load:file:/usr/local/etc/npmrc
+7 verbose title npm install node-red-contrib-config@1.2.1
+8 verbose argv "install" "--no-audit" "--no-update-notifier" "--no-fund" "--save" "--save-prefix" "~" "--omit" "dev" "--engine-strict" "node-red-contrib-config@1.2.1"
+9 verbose logfile logs-max:10 dir:/data/.npm/_logs/2024-07-09T17_41_20_942Z-
+10 verbose logfile /data/.npm/_logs/2024-07-09T17_41_20_942Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly idealTree buildDeps
+13 silly fetch manifest node-red-contrib-config@1.2.1
+14 verbose shrinkwrap failed to load node_modules/.package-lock.json missing from lockfile: node_modules/agent-base
+15 http fetch GET 200 https://registry.npmjs.org/node-red-contrib-config 945ms (cache miss)
+16 silly placeDep ROOT node-red-contrib-config@1.2.1 OK for: node-red-project@0.0.1 want: 1.2.1
+17 silly reify mark retired [ '/data/node_modules/array-buffer-byte-length' ]
+18 silly reify mark retired [ '/data/node_modules/agent-base' ]
+19 silly reify mark retired [ '/data/node_modules/ajv' ]
+20 silly reify mark retired [ '/data/node_modules/arraybuffer.prototype.slice' ]
+21 silly reify mark retired [ '/data/node_modules/array.prototype.findindex' ]
+22 silly reify mark retired [ '/data/node_modules/asn1' ]
+23 silly reify mark retired [ '/data/node_modules/assert-plus' ]
+24 silly reify mark retired [ '/data/node_modules/asynckit' ]
+25 silly reify mark retired [ '/data/node_modules/available-typed-arrays' ]
+26 silly reify mark retired [ '/data/node_modules/aws-sign2' ]
+27 silly reify mark retired [ '/data/node_modules/aws4' ]
+28 silly reify mark retired [ '/data/node_modules/bcrypt-pbkdf' ]
+29 silly reify mark retired [ '/data/node_modules/bluebird' ]
+30 silly reify mark retired [ '/data/node_modules/call-bind' ]
+31 silly reify mark retired [ '/data/node_modules/combined-stream' ]
+32 silly reify mark retired [ '/data/node_modules/caseless' ]
+33 silly reify mark retired [ '/data/node_modules/data-view-buffer' ]
+34 silly reify mark retired [ '/data/node_modules/core-util-is' ]
+35 silly reify mark retired [ '/data/node_modules/dashdash' ]
+36 silly reify mark retired [ '/data/node_modules/data-view-byte-length' ]
+37 silly reify mark retired [ '/data/node_modules/data-view-byte-offset' ]
+38 silly reify mark retired [ '/data/node_modules/define-data-property' ]
+39 silly reify mark retired [ '/data/node_modules/define-properties' ]
+40 silly reify mark retired [ '/data/node_modules/delayed-stream' ]
+41 silly reify mark retired [ '/data/node_modules/ecc-jsbn' ]
+42 silly reify mark retired [ '/data/node_modules/es-abstract' ]
+43 silly reify mark retired [ '/data/node_modules/es-define-property' ]
+44 silly reify mark retired [ '/data/node_modules/es-errors' ]
+45 silly reify mark retired [ '/data/node_modules/es-object-atoms' ]
+46 silly reify mark retired [ '/data/node_modules/es-set-tostringtag' ]
+47 silly reify mark retired [ '/data/node_modules/es-shim-unscopables' ]
+48 silly reify mark retired [ '/data/node_modules/es-to-primitive' ]
+49 silly reify mark retired [ '/data/node_modules/fast-deep-equal' ]
+50 silly reify mark retired [ '/data/node_modules/fast-json-stable-stringify' ]
+51 silly reify mark retired [ '/data/node_modules/eventemitter3' ]
+52 silly reify mark retired [ '/data/node_modules/extsprintf' ]
+53 silly reify mark retired [ '/data/node_modules/extend' ]
+54 silly reify mark retired [ '/data/node_modules/file-type' ]
+55 silly reify mark retired [ '/data/node_modules/for-each' ]
+56 silly reify mark retired [ '/data/node_modules/forever-agent' ]
+57 silly reify mark retired [ '/data/node_modules/form-data' ]
+58 silly reify mark retired [ '/data/node_modules/function-bind' ]
+59 silly reify mark retired [ '/data/node_modules/functions-have-names' ]
+60 silly reify mark retired [ '/data/node_modules/get-intrinsic' ]
+61 silly reify mark retired [ '/data/node_modules/function.prototype.name' ]
+62 silly reify mark retired [ '/data/node_modules/globalthis' ]
+63 silly reify mark retired [ '/data/node_modules/get-symbol-description' ]
+64 silly reify mark retired [ '/data/node_modules/getpass' ]
+65 silly reify mark retired [ '/data/node_modules/gopd' ]
+66 silly reify mark retired [ '/data/node_modules/har-schema' ]
+67 silly reify mark retired [ '/data/node_modules/has-bigints' ]
+68 silly reify mark retired [ '/data/node_modules/har-validator' ]
+69 silly reify mark retired [ '/data/node_modules/has-property-descriptors' ]
+70 silly reify mark retired [ '/data/node_modules/has-proto' ]
+71 silly reify mark retired [ '/data/node_modules/has-symbols' ]
+72 silly reify mark retired [ '/data/node_modules/has-tostringtag' ]
+73 silly reify mark retired [ '/data/node_modules/hasown' ]
+74 silly reify mark retired [ '/data/node_modules/http-signature' ]
+75 silly reify mark retired [ '/data/node_modules/internal-slot' ]
+76 silly reify mark retired [ '/data/node_modules/ip-address' ]
+77 silly reify mark retired [ '/data/node_modules/is-bigint' ]
+78 silly reify mark retired [ '/data/node_modules/is-array-buffer' ]
+79 silly reify mark retired [ '/data/node_modules/is-boolean-object' ]
+80 silly reify mark retired [ '/data/node_modules/is-callable' ]
+81 silly reify mark retired [ '/data/node_modules/is-data-view' ]
+82 silly reify mark retired [ '/data/node_modules/is-negative-zero' ]
+83 silly reify mark retired [ '/data/node_modules/is-date-object' ]
+84 silly reify mark retired [ '/data/node_modules/is-number-object' ]
+85 silly reify mark retired [ '/data/node_modules/is-regex' ]
+86 silly reify mark retired [ '/data/node_modules/is-shared-array-buffer' ]
+87 silly reify mark retired [ '/data/node_modules/is-symbol' ]
+88 silly reify mark retired [ '/data/node_modules/is-string' ]
+89 silly reify mark retired [ '/data/node_modules/is-typed-array' ]
+90 silly reify mark retired [ '/data/node_modules/is-typedarray' ]
+91 silly reify mark retired [ '/data/node_modules/isarray' ]
+92 silly reify mark retired [ '/data/node_modules/is-weakref' ]
+93 silly reify mark retired [ '/data/node_modules/isstream' ]
+94 silly reify mark retired [ '/data/node_modules/json-schema-traverse' ]
+95 silly reify mark retired [ '/data/node_modules/jsbn' ]
+96 silly reify mark retired [ '/data/node_modules/json-schema' ]
+97 silly reify mark retired [ '/data/node_modules/jsprim' ]
+98 silly reify mark retired [ '/data/node_modules/json-stringify-safe' ]
+99 silly reify mark retired [ '/data/node_modules/mime', '/data/node_modules/.bin/mime' ]
+100 silly reify mark retired [ '/data/node_modules/mime-db' ]
+101 silly reify mark retired [ '/data/node_modules/mime-types' ]
+102 silly reify mark retired [ '/data/node_modules/node-red-contrib-telegrambot' ]
+103 silly reify mark retired [ '/data/node_modules/node-telegram-bot-api' ]
+104 silly reify mark retired [ '/data/node_modules/oauth-sign' ]
+105 silly reify mark retired [ '/data/node_modules/object-keys' ]
+106 silly reify mark retired [ '/data/node_modules/object-inspect' ]
+107 silly reify mark retired [ '/data/node_modules/object.assign' ]
+108 silly reify mark retired [ '/data/node_modules/performance-now' ]
+109 silly reify mark retired [ '/data/node_modules/possible-typed-array-names' ]
+110 silly reify mark retired [ '/data/node_modules/psl' ]
+111 silly reify mark retired [ '/data/node_modules/punycode' ]
+112 silly reify mark retired [ '/data/node_modules/qs' ]
+113 silly reify mark retired [ '/data/node_modules/querystringify' ]
+114 silly reify mark retired [ '/data/node_modules/regexp.prototype.flags' ]
+115 silly reify mark retired [ '/data/node_modules/request-promise-core' ]
+116 silly reify mark retired [ '/data/node_modules/request' ]
+117 silly reify mark retired [ '/data/node_modules/requires-port' ]
+118 silly reify mark retired [ '/data/node_modules/safe-array-concat' ]
+119 silly reify mark retired [ '/data/node_modules/safe-regex-test' ]
+120 silly reify mark retired [ '/data/node_modules/safer-buffer' ]
+121 silly reify mark retired [ '/data/node_modules/set-function-length' ]
+122 silly reify mark retired [ '/data/node_modules/set-function-name' ]
+123 silly reify mark retired [ '/data/node_modules/side-channel' ]
+124 silly reify mark retired [ '/data/node_modules/smart-buffer' ]
+125 silly reify mark retired [ '/data/node_modules/socks-proxy-agent' ]
+126 silly reify mark retired [ '/data/node_modules/socks' ]
+127 silly reify mark retired [ '/data/node_modules/sprintf-js' ]
+128 silly reify mark retired [ '/data/node_modules/stealthy-require' ]
+129 silly reify mark retired [ '/data/node_modules/string.prototype.trim' ]
+130 silly reify mark retired [ '/data/node_modules/string.prototype.trimstart' ]
+131 silly reify mark retired [ '/data/node_modules/string.prototype.trimend' ]
+132 silly reify mark retired [ '/data/node_modules/tough-cookie' ]
+133 silly reify mark retired [ '/data/node_modules/tunnel-agent' ]
+134 silly reify mark retired [ '/data/node_modules/tweetnacl' ]
+135 silly reify mark retired [ '/data/node_modules/typed-array-buffer' ]
+136 silly reify mark retired [ '/data/node_modules/typed-array-byte-length' ]
+137 silly reify mark retired [ '/data/node_modules/typed-array-byte-offset' ]
+138 silly reify mark retired [ '/data/node_modules/typed-array-length' ]
+139 silly reify mark retired [ '/data/node_modules/unbox-primitive' ]
+140 silly reify mark retired [ '/data/node_modules/universalify' ]
+141 silly reify mark retired [ '/data/node_modules/uuid', '/data/node_modules/.bin/uuid' ]
+142 silly reify mark retired [ '/data/node_modules/url-parse' ]
+143 silly reify mark retired [ '/data/node_modules/uri-js' ]
+144 silly reify mark retired [ '/data/node_modules/verror' ]
+145 silly reify mark retired [ '/data/node_modules/which-typed-array' ]
+146 silly reify mark retired [ '/data/node_modules/which-boxed-primitive' ]
+147 silly reify mark retired [ '/data/node_modules/@cypress/request' ]
+148 silly reify mark retired [ '/data/node_modules/@cypress/request-promise' ]
+149 silly reify mark retired [
+149 silly reify   '/data/node_modules/sshpk',
+149 silly reify   '/data/node_modules/.bin/sshpk-conv',
+149 silly reify   '/data/node_modules/.bin/sshpk-sign',
+149 silly reify   '/data/node_modules/.bin/sshpk-verify'
+149 silly reify ]
+150 silly reify moves {
+150 silly reify   '/data/node_modules/array-buffer-byte-length': '/data/node_modules/.array-buffer-byte-length-oZjukEgA',
+150 silly reify   '/data/node_modules/agent-base': '/data/node_modules/.agent-base-YVqTSI8f',
+150 silly reify   '/data/node_modules/ajv': '/data/node_modules/.ajv-jzyQZzDM',
+150 silly reify   '/data/node_modules/arraybuffer.prototype.slice': '/data/node_modules/.arraybuffer.prototype.slice-k1DeA9WX',
+150 silly reify   '/data/node_modules/array.prototype.findindex': '/data/node_modules/.array.prototype.findindex-G8edcueC',
+150 silly reify   '/data/node_modules/asn1': '/data/node_modules/.asn1-e0bUEltG',
+150 silly reify   '/data/node_modules/assert-plus': '/data/node_modules/.assert-plus-YZQnnLf9',
+150 silly reify   '/data/node_modules/asynckit': '/data/node_modules/.asynckit-fWfEfcP5',
+150 silly reify   '/data/node_modules/available-typed-arrays': '/data/node_modules/.available-typed-arrays-F0pPOmmD',
+150 silly reify   '/data/node_modules/aws-sign2': '/data/node_modules/.aws-sign2-X45wVquF',
+150 silly reify   '/data/node_modules/aws4': '/data/node_modules/.aws4-Wbwj5ujf',
+150 silly reify   '/data/node_modules/bcrypt-pbkdf': '/data/node_modules/.bcrypt-pbkdf-ttTcMKMW',
+150 silly reify   '/data/node_modules/bluebird': '/data/node_modules/.bluebird-i0K7vRRs',
+150 silly reify   '/data/node_modules/call-bind': '/data/node_modules/.call-bind-Yv9jQlrb',
+150 silly reify   '/data/node_modules/combined-stream': '/data/node_modules/.combined-stream-0zmoVf8j',
+150 silly reify   '/data/node_modules/caseless': '/data/node_modules/.caseless-ekVdtHwV',
+150 silly reify   '/data/node_modules/data-view-buffer': '/data/node_modules/.data-view-buffer-gqqkJZgs',
+150 silly reify   '/data/node_modules/core-util-is': '/data/node_modules/.core-util-is-9IULv6p7',
+150 silly reify   '/data/node_modules/dashdash': '/data/node_modules/.dashdash-TmMTJdjV',
+150 silly reify   '/data/node_modules/data-view-byte-length': '/data/node_modules/.data-view-byte-length-jd2eX3U8',
+150 silly reify   '/data/node_modules/data-view-byte-offset': '/data/node_modules/.data-view-byte-offset-kErtIBFA',
+150 silly reify   '/data/node_modules/define-data-property': '/data/node_modules/.define-data-property-VKT18bAJ',
+150 silly reify   '/data/node_modules/define-properties': '/data/node_modules/.define-properties-HxCEOxbB',
+150 silly reify   '/data/node_modules/delayed-stream': '/data/node_modules/.delayed-stream-RwPyxr6p',
+150 silly reify   '/data/node_modules/ecc-jsbn': '/data/node_modules/.ecc-jsbn-9XjzsfMH',
+150 silly reify   '/data/node_modules/es-abstract': '/data/node_modules/.es-abstract-O0taOor5',
+150 silly reify   '/data/node_modules/es-define-property': '/data/node_modules/.es-define-property-IEVHdp4Z',
+150 silly reify   '/data/node_modules/es-errors': '/data/node_modules/.es-errors-2sMHs2CU',
+150 silly reify   '/data/node_modules/es-object-atoms': '/data/node_modules/.es-object-atoms-CvCWAMFj',
+150 silly reify   '/data/node_modules/es-set-tostringtag': '/data/node_modules/.es-set-tostringtag-9MaL3Dve',
+150 silly reify   '/data/node_modules/es-shim-unscopables': '/data/node_modules/.es-shim-unscopables-dP2rtD93',
+150 silly reify   '/data/node_modules/es-to-primitive': '/data/node_modules/.es-to-primitive-g13LEq4e',
+150 silly reify   '/data/node_modules/fast-deep-equal': '/data/node_modules/.fast-deep-equal-zliBd0dy',
+150 silly reify   '/data/node_modules/fast-json-stable-stringify': '/data/node_modules/.fast-json-stable-stringify-fvJHGmZ2',
+150 silly reify   '/data/node_modules/eventemitter3': '/data/node_modules/.eventemitter3-x5xH1mQP',
+150 silly reify   '/data/node_modules/extsprintf': '/data/node_modules/.extsprintf-FoHmJk3p',
+150 silly reify   '/data/node_modules/extend': '/data/node_modules/.extend-IBMMU5HM',
+150 silly reify   '/data/node_modules/file-type': '/data/node_modules/.file-type-8JbuQkaB',
+150 silly reify   '/data/node_modules/for-each': '/data/node_modules/.for-each-y9KLnFPy',
+150 silly reify   '/data/node_modules/forever-agent': '/data/node_modules/.forever-agent-ETyJOEPt',
+150 silly reify   '/data/node_modules/form-data': '/data/node_modules/.form-data-VxlkrdGS',
+150 silly reify   '/data/node_modules/function-bind': '/data/node_modules/.function-bind-8LMoDvai',
+150 silly reify   '/data/node_modules/functions-have-names': '/data/node_modules/.functions-have-names-DpintfK7',
+150 silly reify   '/data/node_modules/get-intrinsic': '/data/node_modules/.get-intrinsic-y5kFVvYI',
+150 silly reify   '/data/node_modules/function.prototype.name': '/data/node_modules/.function.prototype.name-FqhzLEQ6',
+150 silly reify   '/data/node_modules/globalthis': '/data/node_modules/.globalthis-S5NLstUz',
+150 silly reify   '/data/node_modules/get-symbol-description': '/data/node_modules/.get-symbol-description-ODBFYM45',
+150 silly reify   '/data/node_modules/getpass': '/data/node_modules/.getpass-8UGyalEQ',
+150 silly reify   '/data/node_modules/gopd': '/data/node_modules/.gopd-mT5X6yfP',
+150 silly reify   '/data/node_modules/har-schema': '/data/node_modules/.har-schema-uXiZHIR3',
+150 silly reify   '/data/node_modules/has-bigints': '/data/node_modules/.has-bigints-gC8X6CRF',
+150 silly reify   '/data/node_modules/har-validator': '/data/node_modules/.har-validator-TX2bAY5B',
+150 silly reify   '/data/node_modules/has-property-descriptors': '/data/node_modules/.has-property-descriptors-Zkw8eNQa',
+150 silly reify   '/data/node_modules/has-proto': '/data/node_modules/.has-proto-yYgfIZsG',
+150 silly reify   '/data/node_modules/has-symbols': '/data/node_modules/.has-symbols-6o5YgQnL',
+150 silly reify   '/data/node_modules/has-tostringtag': '/data/node_modules/.has-tostringtag-udI1voPK',
+150 silly reify   '/data/node_modules/hasown': '/data/node_modules/.hasown-7vUUDMas',
+150 silly reify   '/data/node_modules/http-signature': '/data/node_modules/.http-signature-sXjIiir6',
+150 silly reify   '/data/node_modules/internal-slot': '/data/node_modules/.internal-slot-fnjGSP63',
+150 silly reify   '/data/node_modules/ip-address': '/data/node_modules/.ip-address-W894yrwn',
+150 silly reify   '/data/node_modules/is-bigint': '/data/node_modules/.is-bigint-5TLrRGnv',
+150 silly reify   '/data/node_modules/is-array-buffer': '/data/node_modules/.is-array-buffer-Yu5rDmnm',
+150 silly reify   '/data/node_modules/is-boolean-object': '/data/node_modules/.is-boolean-object-ZVFwMMjX',
+150 silly reify   '/data/node_modules/is-callable': '/data/node_modules/.is-callable-yfiNyIDr',
+150 silly reify   '/data/node_modules/is-data-view': '/data/node_modules/.is-data-view-CToBRSHd',
+150 silly reify   '/data/node_modules/is-negative-zero': '/data/node_modules/.is-negative-zero-yzv2Cbnw',
+150 silly reify   '/data/node_modules/is-date-object': '/data/node_modules/.is-date-object-4yYDbyJf',
+150 silly reify   '/data/node_modules/is-number-object': '/data/node_modules/.is-number-object-mp8sjLsf',
+150 silly reify   '/data/node_modules/is-regex': '/data/node_modules/.is-regex-fftmJuyv',
+150 silly reify   '/data/node_modules/is-shared-array-buffer': '/data/node_modules/.is-shared-array-buffer-a9XfFoS1',
+150 silly reify   '/data/node_modules/is-symbol': '/data/node_modules/.is-symbol-KwGjPpNx',
+150 silly reify   '/data/node_modules/is-string': '/data/node_modules/.is-string-sUiMxW0S',
+150 silly reify   '/data/node_modules/is-typed-array': '/data/node_modules/.is-typed-array-zKAY927Q',
+150 silly reify   '/data/node_modules/is-typedarray': '/data/node_modules/.is-typedarray-ljDyWP6Y',
+150 silly reify   '/data/node_modules/isarray': '/data/node_modules/.isarray-Qb0SFsNw',
+150 silly reify   '/data/node_modules/is-weakref': '/data/node_modules/.is-weakref-RpZ4UTFO',
+150 silly reify   '/data/node_modules/isstream': '/data/node_modules/.isstream-3iJGFMBy',
+150 silly reify   '/data/node_modules/json-schema-traverse': '/data/node_modules/.json-schema-traverse-zMJEzWC6',
+150 silly reify   '/data/node_modules/jsbn': '/data/node_modules/.jsbn-SoBmc5PG',
+150 silly reify   '/data/node_modules/json-schema': '/data/node_modules/.json-schema-oZ7nJNQT',
+150 silly reify   '/data/node_modules/jsprim': '/data/node_modules/.jsprim-xDzGB51Y',
+150 silly reify   '/data/node_modules/json-stringify-safe': '/data/node_modules/.json-stringify-safe-JGxUyLWG',
+150 silly reify   '/data/node_modules/mime': '/data/node_modules/.mime-8INyOFlQ',
+150 silly reify   '/data/node_modules/.bin/mime': '/data/node_modules/.bin/.mime-LWvk3NlW',
+150 silly reify   '/data/node_modules/mime-db': '/data/node_modules/.mime-db-Bc7q22S9',
+150 silly reify   '/data/node_modules/mime-types': '/data/node_modules/.mime-types-Cid6PBHG',
+150 silly reify   '/data/node_modules/node-red-contrib-telegrambot': '/data/node_modules/.node-red-contrib-telegrambot-B71acOxW',
+150 silly reify   '/data/node_modules/node-telegram-bot-api': '/data/node_modules/.node-telegram-bot-api-YuOJm3lQ',
+150 silly reify   '/data/node_modules/oauth-sign': '/data/node_modules/.oauth-sign-1dcypRvD',
+150 silly reify   '/data/node_modules/object-keys': '/data/node_modules/.object-keys-GOrTzMDG',
+150 silly reify   '/data/node_modules/object-inspect': '/data/node_modules/.object-inspect-geCx57bY',
+150 silly reify   '/data/node_modules/object.assign': '/data/node_modules/.object.assign-JTeXEkTP',
+150 silly reify   '/data/node_modules/performance-now': '/data/node_modules/.performance-now-q04eAUSy',
+150 silly reify   '/data/node_modules/possible-typed-array-names': '/data/node_modules/.possible-typed-array-names-1tyaQ2BI',
+150 silly reify   '/data/node_modules/psl': '/data/node_modules/.psl-l2CdK3gQ',
+150 silly reify   '/data/node_modules/punycode': '/data/node_modules/.punycode-gyQTLwWT',
+150 silly reify   '/data/node_modules/qs': '/data/node_modules/.qs-t2ewpGYR',
+150 silly reify   '/data/node_modules/querystringify': '/data/node_modules/.querystringify-LmJqEaYW',
+150 silly reify   '/data/node_modules/regexp.prototype.flags': '/data/node_modules/.regexp.prototype.flags-Zhmjl5Kt',
+150 silly reify   '/data/node_modules/request-promise-core': '/data/node_modules/.request-promise-core-kKo4ZYwR',
+150 silly reify   '/data/node_modules/request': '/data/node_modules/.request-DH2dnj1F',
+150 silly reify   '/data/node_modules/requires-port': '/data/node_modules/.requires-port-65AuYnvS',
+150 silly reify   '/data/node_modules/safe-array-concat': '/data/node_modules/.safe-array-concat-obybANDw',
+150 silly reify   '/data/node_modules/safe-regex-test': '/data/node_modules/.safe-regex-test-DUJyYzzl',
+150 silly reify   '/data/node_modules/safer-buffer': '/data/node_modules/.safer-buffer-aAdgwKtH',
+150 silly reify   '/data/node_modules/set-function-length': '/data/node_modules/.set-function-length-hVqCwJXi',
+150 silly reify   '/data/node_modules/set-function-name': '/data/node_modules/.set-function-name-Qk08C00T',
+150 silly reify   '/data/node_modules/side-channel': '/data/node_modules/.side-channel-UuWWjaWY',
+150 silly reify   '/data/node_modules/smart-buffer': '/data/node_modules/.smart-buffer-EWy5WmvE',
+150 silly reify   '/data/node_modules/socks-proxy-agent': '/data/node_modules/.socks-proxy-agent-cMunNzIP',
+150 silly reify   '/data/node_modules/socks': '/data/node_modules/.socks-9ShnZhLT',
+150 silly reify   '/data/node_modules/sprintf-js': '/data/node_modules/.sprintf-js-ksAK5DwP',
+150 silly reify   '/data/node_modules/stealthy-require': '/data/node_modules/.stealthy-require-zsoPKG42',
+150 silly reify   '/data/node_modules/string.prototype.trim': '/data/node_modules/.string.prototype.trim-uLGdwj0o',
+150 silly reify   '/data/node_modules/string.prototype.trimstart': '/data/node_modules/.string.prototype.trimstart-z0rGnqnZ',
+150 silly reify   '/data/node_modules/string.prototype.trimend': '/data/node_modules/.string.prototype.trimend-OvazvP3q',
+150 silly reify   '/data/node_modules/tough-cookie': '/data/node_modules/.tough-cookie-vIsWCDtx',
+150 silly reify   '/data/node_modules/tunnel-agent': '/data/node_modules/.tunnel-agent-o9qAJAS3',
+150 silly reify   '/data/node_modules/tweetnacl': '/data/node_modules/.tweetnacl-FVDo8YcJ',
+150 silly reify   '/data/node_modules/typed-array-buffer': '/data/node_modules/.typed-array-buffer-ugvKJUp1',
+150 silly reify   '/data/node_modules/typed-array-byte-length': '/data/node_modules/.typed-array-byte-length-OekfFUfT',
+150 silly reify   '/data/node_modules/typed-array-byte-offset': '/data/node_modules/.typed-array-byte-offset-2onPSZFR',
+150 silly reify   '/data/node_modules/typed-array-length': '/data/node_modules/.typed-array-length-unufZUdz',
+150 silly reify   '/data/node_modules/unbox-primitive': '/data/node_modules/.unbox-primitive-7g03mrML',
+150 silly reify   '/data/node_modules/universalify': '/data/node_modules/.universalify-oE2Nbdzx',
+150 silly reify   '/data/node_modules/uuid': '/data/node_modules/.uuid-4ltFvtl7',
+150 silly reify   '/data/node_modules/.bin/uuid': '/data/node_modules/.bin/.uuid-AirT9FyH',
+150 silly reify   '/data/node_modules/url-parse': '/data/node_modules/.url-parse-AKZaTwUg',
+150 silly reify   '/data/node_modules/uri-js': '/data/node_modules/.uri-js-yojBRoJj',
+150 silly reify   '/data/node_modules/verror': '/data/node_modules/.verror-WoSm6F9n',
+150 silly reify   '/data/node_modules/which-typed-array': '/data/node_modules/.which-typed-array-Zcm1Uc2I',
+150 silly reify   '/data/node_modules/which-boxed-primitive': '/data/node_modules/.which-boxed-primitive-hr1bJZa0',
+150 silly reify   '/data/node_modules/@cypress/request': '/data/node_modules/@cypress/.request-1E8GnRMD',
+150 silly reify   '/data/node_modules/@cypress/request-promise': '/data/node_modules/@cypress/.request-promise-0NX0J0rE',
+150 silly reify   '/data/node_modules/sshpk': '/data/node_modules/.sshpk-eLsZQtXO',
+150 silly reify   '/data/node_modules/.bin/sshpk-conv': '/data/node_modules/.bin/.sshpk-conv-QPuEKOiy',
+150 silly reify   '/data/node_modules/.bin/sshpk-sign': '/data/node_modules/.bin/.sshpk-sign-IzCPgJfp',
+150 silly reify   '/data/node_modules/.bin/sshpk-verify': '/data/node_modules/.bin/.sshpk-verify-qEecWVxV'
+150 silly reify }
+151 silly tarball no local data for node-red-contrib-config@https://registry.npmjs.org/node-red-contrib-config/-/node-red-contrib-config-1.2.1.tgz. Extracting by manifest.
+152 http fetch GET 200 https://registry.npmjs.org/node-red-contrib-config/-/node-red-contrib-config-1.2.1.tgz 897ms (cache miss)
+153 silly ADD node_modules/node-red-contrib-config
+154 silly REMOVE node_modules/sshpk
+155 silly REMOVE node_modules/sshpk/node_modules/jsbn
+156 silly REMOVE node_modules/@cypress/request-promise
+157 silly REMOVE node_modules/@cypress/request
+158 silly REMOVE node_modules/which-boxed-primitive
+159 silly REMOVE node_modules/which-typed-array
+160 silly REMOVE node_modules/verror
+161 silly REMOVE node_modules/uri-js
+162 silly REMOVE node_modules/url-parse
+163 silly REMOVE node_modules/uuid
+164 silly REMOVE node_modules/universalify
+165 silly REMOVE node_modules/unbox-primitive
+166 silly REMOVE node_modules/typed-array-length
+167 silly REMOVE node_modules/typed-array-byte-offset
+168 silly REMOVE node_modules/typed-array-byte-length
+169 silly REMOVE node_modules/typed-array-buffer
+170 silly REMOVE node_modules/tweetnacl
+171 silly REMOVE node_modules/tunnel-agent
+172 silly REMOVE node_modules/tough-cookie
+173 silly REMOVE node_modules/string.prototype.trimend
+174 silly REMOVE node_modules/string.prototype.trimstart
+175 silly REMOVE node_modules/string.prototype.trim
+176 silly REMOVE node_modules/stealthy-require
+177 silly REMOVE node_modules/sprintf-js
+178 silly REMOVE node_modules/socks
+179 silly REMOVE node_modules/socks-proxy-agent
+180 silly REMOVE node_modules/smart-buffer
+181 silly REMOVE node_modules/side-channel
+182 silly REMOVE node_modules/set-function-name
+183 silly REMOVE node_modules/set-function-length
+184 silly REMOVE node_modules/safer-buffer
+185 silly REMOVE node_modules/safe-regex-test
+186 silly REMOVE node_modules/safe-array-concat
+187 silly REMOVE node_modules/requires-port
+188 silly REMOVE node_modules/request
+189 silly REMOVE node_modules/request/node_modules/tough-cookie
+190 silly REMOVE node_modules/request/node_modules/uuid
+191 silly REMOVE node_modules/request/node_modules/qs
+192 silly REMOVE node_modules/request/node_modules/http-signature
+193 silly REMOVE node_modules/request/node_modules/jsprim
+194 silly REMOVE node_modules/request-promise-core
+195 silly REMOVE node_modules/regexp.prototype.flags
+196 silly REMOVE node_modules/querystringify
+197 silly REMOVE node_modules/qs
+198 silly REMOVE node_modules/punycode
+199 silly REMOVE node_modules/psl
+200 silly REMOVE node_modules/possible-typed-array-names
+201 silly REMOVE node_modules/performance-now
+202 silly REMOVE node_modules/object.assign
+203 silly REMOVE node_modules/object-inspect
+204 silly REMOVE node_modules/object-keys
+205 silly REMOVE node_modules/oauth-sign
+206 silly REMOVE node_modules/node-telegram-bot-api
+207 silly REMOVE node_modules/node-telegram-bot-api/node_modules/string_decoder
+208 silly REMOVE node_modules/node-telegram-bot-api/node_modules/safe-buffer
+209 silly REMOVE node_modules/node-telegram-bot-api/node_modules/readable-stream
+210 silly REMOVE node_modules/node-telegram-bot-api/node_modules/pump
+211 silly REMOVE node_modules/node-telegram-bot-api/node_modules/isarray
+212 silly REMOVE node_modules/node-telegram-bot-api/node_modules/debug
+213 silly REMOVE node_modules/node-telegram-bot-api/node_modules/bl
+214 silly REMOVE node_modules/node-red-contrib-telegrambot
+215 silly REMOVE node_modules/mime-types
+216 silly REMOVE node_modules/mime-db
+217 silly REMOVE node_modules/mime
+218 silly REMOVE node_modules/json-stringify-safe
+219 silly REMOVE node_modules/jsprim
+220 silly REMOVE node_modules/json-schema
+221 silly REMOVE node_modules/jsbn
+222 silly REMOVE node_modules/json-schema-traverse
+223 silly REMOVE node_modules/isstream
+224 silly REMOVE node_modules/is-weakref
+225 silly REMOVE node_modules/isarray
+226 silly REMOVE node_modules/is-typedarray
+227 silly REMOVE node_modules/is-typed-array
+228 silly REMOVE node_modules/is-string
+229 silly REMOVE node_modules/is-symbol
+230 silly REMOVE node_modules/is-shared-array-buffer
+231 silly REMOVE node_modules/is-regex
+232 silly REMOVE node_modules/is-number-object
+233 silly REMOVE node_modules/is-date-object
+234 silly REMOVE node_modules/is-negative-zero
+235 silly REMOVE node_modules/is-data-view
+236 silly REMOVE node_modules/is-callable
+237 silly REMOVE node_modules/is-boolean-object
+238 silly REMOVE node_modules/is-array-buffer
+239 silly REMOVE node_modules/is-bigint
+240 silly REMOVE node_modules/ip-address
+241 silly REMOVE node_modules/internal-slot
+242 silly REMOVE node_modules/http-signature
+243 silly REMOVE node_modules/hasown
+244 silly REMOVE node_modules/has-tostringtag
+245 silly REMOVE node_modules/has-symbols
+246 silly REMOVE node_modules/has-proto
+247 silly REMOVE node_modules/has-property-descriptors
+248 silly REMOVE node_modules/har-validator
+249 silly REMOVE node_modules/has-bigints
+250 silly REMOVE node_modules/har-schema
+251 silly REMOVE node_modules/gopd
+252 silly REMOVE node_modules/getpass
+253 silly REMOVE node_modules/get-symbol-description
+254 silly REMOVE node_modules/globalthis
+255 silly REMOVE node_modules/function.prototype.name
+256 silly REMOVE node_modules/get-intrinsic
+257 silly REMOVE node_modules/functions-have-names
+258 silly REMOVE node_modules/function-bind
+259 silly REMOVE node_modules/form-data
+260 silly REMOVE node_modules/forever-agent
+261 silly REMOVE node_modules/for-each
+262 silly REMOVE node_modules/file-type
+263 silly REMOVE node_modules/extend
+264 silly REMOVE node_modules/extsprintf
+265 silly REMOVE node_modules/eventemitter3
+266 silly REMOVE node_modules/fast-json-stable-stringify
+267 silly REMOVE node_modules/fast-deep-equal
+268 silly REMOVE node_modules/es-to-primitive
+269 silly REMOVE node_modules/es-shim-unscopables
+270 silly REMOVE node_modules/es-set-tostringtag
+271 silly REMOVE node_modules/es-object-atoms
+272 silly REMOVE node_modules/es-errors
+273 silly REMOVE node_modules/es-define-property
+274 silly REMOVE node_modules/es-abstract
+275 silly REMOVE node_modules/ecc-jsbn
+276 silly REMOVE node_modules/ecc-jsbn/node_modules/jsbn
+277 silly REMOVE node_modules/delayed-stream
+278 silly REMOVE node_modules/define-properties
+279 silly REMOVE node_modules/define-data-property
+280 silly REMOVE node_modules/data-view-byte-offset
+281 silly REMOVE node_modules/data-view-byte-length
+282 silly REMOVE node_modules/dashdash
+283 silly REMOVE node_modules/core-util-is
+284 silly REMOVE node_modules/data-view-buffer
+285 silly REMOVE node_modules/caseless
+286 silly REMOVE node_modules/combined-stream
+287 silly REMOVE node_modules/call-bind
+288 silly REMOVE node_modules/bluebird
+289 silly REMOVE node_modules/bcrypt-pbkdf
+290 silly REMOVE node_modules/aws4
+291 silly REMOVE node_modules/aws-sign2
+292 silly REMOVE node_modules/available-typed-arrays
+293 silly REMOVE node_modules/asynckit
+294 silly REMOVE node_modules/assert-plus
+295 silly REMOVE node_modules/asn1
+296 silly REMOVE node_modules/array.prototype.findindex
+297 silly REMOVE node_modules/arraybuffer.prototype.slice
+298 silly REMOVE node_modules/ajv
+299 silly REMOVE node_modules/agent-base
+300 silly REMOVE node_modules/array-buffer-byte-length
+301 verbose exit 0
+302 info ok
